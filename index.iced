@@ -52,6 +52,78 @@ exports.make_errors = make_errors = (d) ->
 
 #=========================================================
 
+ipush = (e, msg) ->
+  if msg?
+    e.istack = [] unless e.istack?
+    e.istack.push msg
+
+# Error short-circuit connector
+exports.make_esc = make_esc = (gcb, where) -> (lcb) ->
+  (err, args...) ->
+    if not err? then lcb args...
+    else if not gcb.__esc
+      gcb.__esc = true
+      ipush err, where
+      gcb err
+
+#================================================
+
+# A class-based Error short-circuiter; output OK
+exports.EscOk = class EscOk
+  constructor : (@gcb, @where) ->
+
+  bailout : () ->
+    if @gcb
+      t = @gcb
+      @gcb = null
+      t false
+
+  check_ok : (cb) ->
+    (ok, args...) =>
+      if not ok then @bailout()
+      else cb args...
+
+  check_err : (cb) ->
+    (err, args...) =>
+      if err?
+        ipush err, @where
+        @bailout()
+      else cb args...
+
+  check_non_null : (cb) ->
+    (args...) =>
+      if not args[0]? then @bailout()
+      else cb args...
+
+#================================================
+
+exports.EscErr = class EscErr
+  constructor : (@gcb, @where) ->
+
+  finish : (err) ->
+    if @gcb
+      t = @gcb
+      @gcb = null
+      t err
+
+  check_ok : (what, cb) ->
+    (ok, args...) ->
+      if not ok 
+        err = new Error "#{what} failed"
+        ipush err, @where
+        @finish err
+      else cb args...
+
+  check_err : (cb) ->
+    (err, args...) ->
+      if err?
+        ipush err, @where
+        @finish err
+      else cb args...
+
+#================================================
+
+
 d = make_errors 
   FOO : "boob dood"
   HAVE_ONE_ON_ME : "ok then"
