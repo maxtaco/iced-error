@@ -106,10 +106,10 @@ exports.EscErr = class EscErr
       @gcb = null
       t err
 
-  check_ok : (what, cb) ->
+  check_ok : (cb, eclass = Error, emsg = null) -> 
     (ok, args...) ->
       if not ok 
-        err = new Error "#{what} failed"
+        err = new eclass emsg
         ipush err, @where
         @finish err
       else cb args...
