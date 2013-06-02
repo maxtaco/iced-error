@@ -30,7 +30,7 @@ console.log E.msg[E.NOT_FOUND]  # prints "Requested resource was not found"
 console.log E.msg.NOT_FOUND]    # prints "Requested resource was not found"
 console.log E.name.NOT_FOUND    # prints "NOT_FOUND"
 console.log E.name[E.NOT_FOUND] # prints "NOT_FOUND"
-``
+```
 
 You can also use predefined Error classes:
 ```coffescript
