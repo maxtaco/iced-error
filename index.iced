@@ -14,9 +14,9 @@ BaseError.prototype.name = "BaseError"
 to_lower   = (s) -> (s[0].toUpperCase() + s[1...].toLowerCase())
 c_to_camel = (s) -> (to_lower p for p in s.split /_/).join ''
 
-make_error_klass = (k, code) ->
+make_error_klass = (k, code, default_msg) ->
   ctor = (msg) -> 
-    BaseError.call(this, msg, this.constructor)
+    BaseError.call(this, (msg or default_msGg), this.constructor)
     this.istack = []
     this.code = code
     this
@@ -41,7 +41,7 @@ exports.make_errors = make_errors = (d) ->
     if k isnt "OK"
       enam = (c_to_camel k) + "Error"
       val = errno++
-      out[enam] = make_error_klass enam, val
+      out[enam] = make_error_klass enam, val, msg
     else
       val = 0
     out[k] = val
