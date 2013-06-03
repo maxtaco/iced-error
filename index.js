@@ -34,17 +34,18 @@
     })()).join('');
   };
 
-  make_error_klass = function(k) {
+  make_error_klass = function(k, code) {
     var ctor;
     ctor = function(msg) {
       BaseError.call(this, msg, this.constructor);
       this.istack = [];
+      this.code = code;
       return this;
     };
     util.inherits(ctor, BaseError);
     ctor.prototype.name = k;
     ctor.prototype.inspect = function() {
-      return "[" + k + ": " + this.message + "]";
+      return "[" + k + ": " + this.message + " (code " + this.code + ")]";
     };
     return ctor;
   };
@@ -62,8 +63,8 @@
       msg = d[k];
       if (k !== "OK") {
         enam = (c_to_camel(k)) + "Error";
-        out[enam] = make_error_klass(enam);
         val = errno++;
+        out[enam] = make_error_klass(enam, val);
       } else {
         val = 0;
       }

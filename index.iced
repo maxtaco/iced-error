@@ -14,14 +14,15 @@ BaseError.prototype.name = "BaseError"
 to_lower   = (s) -> (s[0].toUpperCase() + s[1...].toLowerCase())
 c_to_camel = (s) -> (to_lower p for p in s.split /_/).join ''
 
-make_error_klass = (k) ->
+make_error_klass = (k, code) ->
   ctor = (msg) -> 
     BaseError.call(this, msg, this.constructor)
     this.istack = []
+    this.code = code
     this
   util.inherits ctor, BaseError
   ctor.prototype.name = k
-  ctor.prototype.inspect = () -> "[#{k}: #{this.message}]"
+  ctor.prototype.inspect = () -> "[#{k}: #{this.message} (code #{this.code})]"
   ctor
 
 #=========================================================
@@ -39,8 +40,8 @@ exports.make_errors = make_errors = (d) ->
   for k,msg of d
     if k isnt "OK"
       enam = (c_to_camel k) + "Error"
-      out[enam] = make_error_klass enam
       val = errno++
+      out[enam] = make_error_klass enam, val
     else
       val = 0
     out[k] = val
