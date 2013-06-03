@@ -122,20 +122,3 @@ exports.EscErr = class EscErr
       else cb args...
 
 #================================================
-
-
-d = make_errors 
-  FOO : "boob dood"
-  HAVE_ONE_ON_ME : "ok then"
-
-console.log d
-
-f = () ->
-  throw new d.FooError "shit dog"
-
-try
-  f()
-catch e
-  if (e instanceof d.FooError)
-    console.log e
-console.log new Error "ass dog"
