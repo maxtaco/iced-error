@@ -34,10 +34,10 @@
     })()).join('');
   };
 
-  make_error_klass = function(k, code) {
+  make_error_klass = function(k, code, default_msg) {
     var ctor;
     ctor = function(msg) {
-      BaseError.call(this, msg, this.constructor);
+      BaseError.call(this, msg || default_msGg, this.constructor);
       this.istack = [];
       this.code = code;
       return this;
@@ -64,7 +64,7 @@
       if (k !== "OK") {
         enam = (c_to_camel(k)) + "Error";
         val = errno++;
-        out[enam] = make_error_klass(enam, val);
+        out[enam] = make_error_klass(enam, val, msg);
       } else {
         val = 0;
       }
