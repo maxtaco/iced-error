@@ -37,7 +37,7 @@
   make_error_klass = function(k, code, default_msg) {
     var ctor;
     ctor = function(msg) {
-      BaseError.call(this, msg || default_msGg, this.constructor);
+      BaseError.call(this, msg || default_msg, this.constructor);
       this.istack = [];
       this.code = code;
       return this;
