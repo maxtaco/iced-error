@@ -16,7 +16,7 @@ c_to_camel = (s) -> (to_lower p for p in s.split /_/).join ''
 
 make_error_klass = (k, code, default_msg) ->
   ctor = (msg) -> 
-    BaseError.call(this, (msg or default_msGg), this.constructor)
+    BaseError.call(this, (msg or default_msg), this.constructor)
     this.istack = []
     this.code = code
     this
