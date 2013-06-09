@@ -51,11 +51,12 @@
   };
 
   exports.make_errors = make_errors = function(d) {
-    var enam, errno, k, msg, out, val;
+    var eklass, enam, errno, k, msg, out, val;
     out = {
       msg: {},
       name: {},
-      code: {}
+      code: {},
+      error: {}
     };
     d.OK = "Success";
     errno = 100;
@@ -64,7 +65,8 @@
       if (k !== "OK") {
         enam = (c_to_camel(k)) + "Error";
         val = errno++;
-        out[enam] = make_error_klass(enam, val, msg);
+        out[enam] = eklass = make_error_klass(enam, val, msg);
+        out.error[val] = out.error[k] = eklass;
       } else {
         val = 0;
       }

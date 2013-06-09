@@ -1,6 +1,6 @@
 {
   "name" : "iced-error",
-  "version" : "0.0.4",
+  "version" : "0.0.5",
   "description" : "An error-handling class written with/for IcedCoffeeScript",
   "homepage" : "https://github.com/maxtaco/iced-error",
   "main" : "./index.js",

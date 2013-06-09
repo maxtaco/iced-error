@@ -32,6 +32,7 @@ exports.make_errors = make_errors = (d) ->
     msg : {}
     name : {}
     code : {}
+    error : {}
 
   # Constants
   d.OK = "Success"
@@ -41,7 +42,8 @@ exports.make_errors = make_errors = (d) ->
     if k isnt "OK"
       enam = (c_to_camel k) + "Error"
       val = errno++
-      out[enam] = make_error_klass enam, val, msg
+      out[enam] = eklass = make_error_klass enam, val, msg
+      out.error[val] = out.error[k] = eklass
     else
       val = 0
     out[k] = val
