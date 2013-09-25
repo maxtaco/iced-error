@@ -213,7 +213,8 @@
   })();
 
   exports.Canceler = Canceler = (function() {
-    function Canceler() {
+    function Canceler(klass) {
+      this.klass = klass != null ? klass : Error;
       this._canceled = false;
     }
 
@@ -231,7 +232,7 @@
 
     Canceler.prototype.err = function() {
       if (this._canceled) {
-        return new Error("Aborted");
+        return new this.klass("Aborted");
       } else {
         return null;
       }

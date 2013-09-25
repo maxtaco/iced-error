@@ -124,11 +124,16 @@ exports.EscErr = class EscErr
 
 #================================================
 
+#
+# A class for canceling an expensive operation.
+# You can either generate a generic Error or one of the
+# Class of your choosing. 
+#
 exports.Canceler = class Canceler
-  constructor : () -> @_canceled = false
+  constructor : (@klass = Error) -> @_canceled = false
   is_canceled : () -> @_canceled
   is_ok       : () -> not @_canceled
   cancel      : () -> @_canceled = true
-  err         : () -> if @_canceled then (new Error "Aborted") else null
+  err         : () -> if @_canceled then (new @klass "Aborted") else null
 
 #================================================
