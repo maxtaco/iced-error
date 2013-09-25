@@ -123,3 +123,12 @@ exports.EscErr = class EscErr
       else cb args...
 
 #================================================
+
+exports.Canceler = class Canceler
+  constructor : () -> @_canceled = false
+  is_canceled : () -> @_canceled
+  is_ok       : () -> not @_canceled
+  cancel      : () -> @_canceled = true
+  err         : () -> if @_canceled then (new Error "Aborted") else null
+
+#================================================
