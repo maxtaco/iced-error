@@ -137,3 +137,12 @@ exports.Canceler = class Canceler
   err         : () -> if @_canceled then (new @klass "Aborted") else null
 
 #================================================
+
+# Chain callback cb and f
+# Call f first, and throw away whatever it calls back with.
+# Then call cb, and pass it the args the chain was called back
+# with.  This is useful for doing a cleanup routine before 
+# something exits.
+exports.chain = (cb, f) -> (args...) -> f () -> cb args...
+
+#================================================
