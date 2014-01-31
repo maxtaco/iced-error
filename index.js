@@ -253,6 +253,18 @@
     };
   };
 
+  exports.chain_err = function(cb, f) {
+    return function() {
+      var args0;
+      args0 = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return f(function() {
+        var args1;
+        args1 = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        return cb.apply(null, ((args1[0] != null) && !(args0[0] != null) ? args1 : args0));
+      });
+    };
+  };
+
 }).call(this);
 
 //# sourceMappingURL=index.map

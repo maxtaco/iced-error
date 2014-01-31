@@ -146,3 +146,15 @@ exports.Canceler = class Canceler
 exports.chain = (cb, f) -> (args...) -> f () -> cb args...
 
 #================================================
+
+# Chain callback cb and f
+# Call f first, and see if it calls back with a first positional error.
+# The error is either the original error, or the error from f.
+# Call cb back with args0 unless there was an error in cleanup and no
+# error in the original.
+exports.chain_err = (cb, f) -> 
+  (args0...) -> 
+    f (args1...) ->
+      cb (if args1[0]? and not(args0[0]?) then args1 else args0)...
+
+#================================================
