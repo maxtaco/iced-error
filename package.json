@@ -1,18 +1,22 @@
 {
-  "name" : "iced-error",
-  "version" : "0.0.8",
-  "description" : "An error-handling class written with/for IcedCoffeeScript",
-  "homepage" : "https://github.com/maxtaco/iced-error",
-  "main" : "./index.js",
-  "repository" : { 
-    "type" : "git",
-     "url" : "https://github.com/maxtaco/iced-error.git"
+  "name": "iced-error",
+  "version": "0.0.8",
+  "description": "An error-handling class written with/for IcedCoffeeScript",
+  "homepage": "https://github.com/maxtaco/iced-error",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxtaco/iced-error.git"
   },
-  "devDependencies" : {
-    "iced-coffee-script" : "*"
+  "devDependencies": {
+    "iced-coffee-script": "^1.7.1-c"
   },
-  "licenses": [{
+  "licenses": [
+    {
       "type": "MIT",
       "url": "http://www.opensource.org/licenses/mit-license.php"
-  }]
+    }
+  ],
+  "dependencies": {
+  }
 }
