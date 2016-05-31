@@ -56,7 +56,7 @@ Catch errors all at once, not everywhere!
 
 ```coffeescript
 {make_esc} = require 'iced-error'
-my_fn = (cb) ->
+my_fn = (gcb) ->
   esc = make_esc gcb, "my_fn"
   await socket.get 'image id', esc defer id
   await Image.findById id, esc defer image
